@@ -1,0 +1,48 @@
+.single-movie-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: #fff;
+  background-color: #121212;
+}
+
+.movie-details {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.single-movie-page img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.single-movie-page h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.single-movie-page .overview {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.movie-stats p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.movie-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.8rem;
+}
