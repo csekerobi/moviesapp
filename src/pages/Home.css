@@ -54,9 +54,58 @@
 
 .movies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(5, 300px);
   gap: 1.5rem;
   padding: 1rem;
   width: 100%;
-  box-sizing: border-box;
+  justify-content: center;
+}
+
+@media (max-width: 1500px) {
+  .favorites .movies-grid {
+    grid-template-columns: repeat(4, 300px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .favorites .movies-grid {
+    grid-template-columns: repeat(3, 300px);
+  }
+}
+
+@media (max-width: 900px) {
+  .favorites .movies-grid {
+    grid-template-columns: repeat(2, 300px);
+  }
+}
+
+@media (max-width: 600px) {
+  .favorites .movies-grid {
+    grid-template-columns: repeat(1, 300px);
+  }
+}
+
+.error-message {
+  text-align: center;
+  color: #ff4c4c;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.back-button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.75rem 1.5rem;
+  background-color: #333;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #555;
 }

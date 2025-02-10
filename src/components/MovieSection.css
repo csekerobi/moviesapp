@@ -1,0 +1,29 @@
+.movie-section {
+  margin: 40px 0;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.movie-section h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 15px;
+  border-left: 5px solid #ff4500;
+  padding-left: 10px;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.loading,
+.error-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ff4500;
+  margin-top: 10px;
+}
