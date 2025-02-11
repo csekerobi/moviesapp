@@ -1,11 +1,13 @@
 import MovieCard from "./MovieCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "./MovieSection.css";
 
 function MovieSection({ title, fetchMovies }) {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const carouselRef = useRef(null);
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -23,6 +25,19 @@ function MovieSection({ title, fetchMovies }) {
     loadMovies();
   }, [fetchMovies]);
 
+  const scroll = (direction) => {
+    if (carouselRef.current) {
+      const scrollAmount =
+        direction === "left"
+          ? -carouselRef.current.offsetWidth
+          : carouselRef.current.offsetWidth;
+      carouselRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div className="movie-section">
       <h2>{title}</h2>
@@ -30,10 +45,24 @@ function MovieSection({ title, fetchMovies }) {
       {loading ? (
         <div className="loading">Loading...</div>
       ) : (
-        <div className="movies-grid">
-          {movies.map((movie) => (
-            <MovieCard movie={movie} key={movie.id} />
-          ))}
+        <div className="carousel-container">
+          <button
+            className="carousel-arrow left"
+            onClick={() => scroll("left")}
+          >
+            <FaArrowLeft size={24} />
+          </button>
+          <div className="carousel" ref={carouselRef}>
+            {movies.map((movie) => (
+              <MovieCard movie={movie} key={movie.id} />
+            ))}
+          </div>
+          <button
+            className="carousel-arrow right"
+            onClick={() => scroll("right")}
+          >
+            <FaArrowRight size={24} />
+          </button>
         </div>
       )}
     </div>
