@@ -46,3 +46,27 @@
   display: flex;
   gap: 0.8rem;
 }
+
+.media-type-badge {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 4px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.genres {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ddd;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  display: inline-block;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}

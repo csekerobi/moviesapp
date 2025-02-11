@@ -1,65 +1,89 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getMovieDetails } from "../services/api";
+import { getMovieDetails, getTVDetails } from "../services/api";
 import { useMovieContext } from "../contexts/MovieContext";
 import "./SingleMoviePage.css";
 
 function SingleMoviePage() {
-  const { movieId } = useParams();
-  const [movie, setMovie] = useState(null);
+  const { movieId, tvId } = useParams();
+  const [media, setMedia] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
-  const favorite = isFavorite(Number(movieId)); // Ensure movieId is a number
+  const favorite = isFavorite(Number(movieId) || Number(tvId));
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
+    const fetchDetails = async () => {
       try {
-        const data = await getMovieDetails(movieId);
-        setMovie(data);
+        let data;
+        if (movieId) {
+          data = await getMovieDetails(movieId);
+        } else if (tvId) {
+          data = await getTVDetails(tvId);
+        } else {
+          setError("Invalid media ID.");
+          return;
+        }
+        setMedia(data);
       } catch (err) {
-        setError("Failed to fetch movie details.");
+        setError("Failed to fetch media details.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchMovieDetails();
-  }, [movieId]);
+    fetchDetails();
+  }, [movieId, tvId]);
 
   function onFavoriteClick() {
-    if (!movie) return; // Prevent errors if movie isn't loaded yet
+    if (!media) return;
 
     if (favorite) {
-      removeFromFavorites(movie.id);
+      removeFromFavorites(media.id);
     } else {
-      addToFavorites(movie);
+      addToFavorites(media);
     }
   }
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  const isMovie = media?.media_type === "movie" || media?.title !== undefined;
+  const isTV = media?.media_type === "tv" || media?.name !== undefined;
+
+  const mediaType = isMovie ? "Movie" : isTV ? "TV Series" : "Unknown";
+
+  // Get the genres and format them as a comma-separated string
+  const genres =
+    media?.genres?.length > 0
+      ? media.genres.map((genre) => genre.name).join(", ")
+      : "No genres available";
+
   return (
     <div className="single-movie-page">
       <div className="movie-details">
         <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
+          src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
+          alt={media.title || media.name}
         />
         <div className="movie-info">
-          <h2>{movie.title}</h2>
-          <p className="overview">{movie.overview}</p>
+          <h2>{media.title || media.name}</h2>
+          <span className="media-type-badge">{mediaType}</span>
+          <p className="genres">{genres}</p>
+          <p className="overview">{media.overview}</p>
           <div className="movie-stats">
+            {isMovie && (
+              <p>
+                <strong>Runtime:</strong> {media.runtime} minutes
+              </p>
+            )}
             <p>
-              <strong>Runtime:</strong> {movie.runtime} minutes
+              <strong>Rating:</strong> {media.vote_average}/10
             </p>
             <p>
-              <strong>Rating:</strong> {movie.vote_average}/10
-            </p>
-            <p>
-              <strong>Release Date:</strong> {movie.release_date}
+              <strong>Release Date: </strong>
+              {media.release_date || media.first_air_date}
             </p>
           </div>
           <div className="movie-buttons">
