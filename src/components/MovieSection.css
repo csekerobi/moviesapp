@@ -35,7 +35,7 @@
 
 .carousel-arrow {
   position: absolute;
-  top: 50%;
+  top: 97%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.7);
   color: white;
@@ -71,7 +71,7 @@
 }
 
 .movie-card {
-  width: 350px;
+  width: 300px;
   flex-shrink: 0;
 }
 

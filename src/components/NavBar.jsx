@@ -11,6 +11,12 @@ function NavBar() {
         <Link to="/" className="nav-link">
           Home
         </Link>
+        <Link to="/all-movies" className="nav-link">
+          All Movies
+        </Link>
+        <Link to="/all-series" className="nav-link">
+          All Series
+        </Link>
         <Link to="/favorites" className="nav-link">
           Favorites
         </Link>
