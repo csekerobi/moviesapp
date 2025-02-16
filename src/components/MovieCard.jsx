@@ -53,7 +53,7 @@ function MovieCard({ movie }) {
         </div>
         <div className="movie-info">
           <h3>{isMovie ? movie.title : isTV ? movie.name : "Unknown"}</h3>
-          {releaseDate && <p>{releaseDate}</p>} // Display the release date
+          {releaseDate && <p>{releaseDate}</p>}
         </div>
       </Link>
     </div>
